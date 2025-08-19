@@ -160,7 +160,7 @@ export default function Home() {
             Everything you need for <span className="font-handwritten text-purple">effective</span> teams
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            From sentiment tracking to actionable insights, we've got your culture covered.
+            From sentiment tracking to actionable insights, we&apos;ve got your culture covered.
           </p>
         </div>
 
@@ -291,7 +291,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-gray-700">
-              "Finally, we can measure team health without endless surveys. Game changer!"
+              &ldquo;Finally, we can measure team health without endless surveys. Game changer!&rdquo;
             </p>
           </div>
 
@@ -311,7 +311,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-gray-700">
-              "The insights helped us catch burnout early and improve our sprint planning."
+              &ldquo;The insights helped us catch burnout early and improve our sprint planning.&rdquo;
             </p>
           </div>
 
@@ -331,7 +331,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-gray-700">
-              "30-second setup, instant value. Our team culture has never been stronger."
+              &ldquo;30-second setup, instant value. Our team culture has never been stronger.&rdquo;
             </p>
           </div>
 
@@ -351,7 +351,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-gray-700">
-              "The sentiment tracking is incredibly accurate. It's like having a culture coach."
+              &ldquo;The sentiment tracking is incredibly accurate. It&apos;s like having a culture coach.&rdquo;
             </p>
           </div>
         </div>

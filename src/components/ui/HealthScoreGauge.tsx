@@ -35,6 +35,7 @@ export const HealthScoreGauge: React.FC<HealthScoreGaugeProps> = ({
       }, 100);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [score, animate]);
 
   const getScoreColor = (score: number) => {
