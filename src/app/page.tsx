@@ -1,102 +1,213 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, BarChart3, Heart, Shield, Sparkles, Timer, Users } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full backdrop-blur-md bg-background/80 border-b z-50">
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Heart className="h-8 w-8 text-primary" />
+            <span className="text-2xl font-bold font-[family-name:var(--font-display)]">
+              Pulse AI
+            </span>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Button variant="ghost">Features</Button>
+            <Button variant="ghost">Pricing</Button>
+            <Button variant="ghost">About</Button>
+            <Button>Get Started</Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center space-y-6">
+            <Badge className="mb-4" variant="secondary">
+              <Sparkles className="h-3 w-3 mr-1" />
+              Powered by AI
+            </Badge>
+            <h1 className="text-6xl font-bold font-[family-name:var(--font-display)] leading-tight">
+              Understand Your Team's
+              <span className="text-primary block">True Sentiment</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              AI-powered sentiment analysis for Slack and Microsoft Teams. 
+              Get instant insights into team health without surveys.
+            </p>
+            <div className="flex justify-center space-x-4 pt-6">
+              <Button size="lg" className="text-lg px-8">
+                Start Free Health Check
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button size="lg" variant="outline" className="text-lg px-8">
+                Watch Demo
+              </Button>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              <Timer className="inline h-4 w-4 mr-1" />
+              60-second setup • No credit card required
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold font-[family-name:var(--font-display)] mb-4">
+              Why Teams Choose Pulse AI
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Real-time insights that help you build healthier teams
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="border-2 hover:border-primary transition-colors">
+              <CardHeader>
+                <BarChart3 className="h-12 w-12 text-primary mb-4" />
+                <CardTitle className="text-2xl">Instant Analysis</CardTitle>
+                <CardDescription>
+                  Get team sentiment scores in 60 seconds. No surveys, no waiting.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li>• Real-time sentiment tracking</li>
+                  <li>• Channel-specific insights</li>
+                  <li>• Historical trend analysis</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-secondary transition-colors">
+              <CardHeader>
+                <Shield className="h-12 w-12 text-secondary mb-4" />
+                <CardTitle className="text-2xl">Privacy First</CardTitle>
+                <CardDescription>
+                  Your data stays secure with enterprise-grade encryption.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li>• GDPR compliant</li>
+                  <li>• Anonymous analysis</li>
+                  <li>• SOC 2 Type II certified</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-accent transition-colors">
+              <CardHeader>
+                <Users className="h-12 w-12 text-accent mb-4" />
+                <CardTitle className="text-2xl">Team Insights</CardTitle>
+                <CardDescription>
+                  Identify burnout risks and celebrate wins automatically.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li>• Burnout prediction</li>
+                  <li>• Team mood tracking</li>
+                  <li>• AI recommendations</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 px-6 bg-muted/50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold font-[family-name:var(--font-display)] mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Three simple steps to healthier teams
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Connect Your Workspace</h3>
+              <p className="text-muted-foreground">
+                Securely connect Slack or Teams with one-click OAuth
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-secondary">2</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">AI Analyzes Sentiment</h3>
+              <p className="text-muted-foreground">
+                Our AI processes messages to understand team dynamics
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-accent">3</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Get Actionable Insights</h3>
+              <p className="text-muted-foreground">
+                Receive real-time alerts and recommendations
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-2">
+            <CardContent className="p-12 text-center">
+              <h2 className="text-4xl font-bold font-[family-name:var(--font-display)] mb-4">
+                Ready to Build a Healthier Team?
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Join hundreds of teams using Pulse AI to improve culture
+              </p>
+              <Button size="lg" className="text-lg px-12">
+                Start Your Free Health Check
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <p className="text-sm text-muted-foreground mt-4">
+                Free forever for teams under 10 • No credit card required
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t py-12 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <Heart className="h-6 w-6 text-primary" />
+              <span className="text-lg font-semibold font-[family-name:var(--font-display)]">
+                Pulse AI
+              </span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              © 2025 Pulse AI. Built with ❤️ by a solopreneur.
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
