@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Slack workspaces
+model Workspace {
+  id                 String   @id @default(cuid())
+  slackTeamId        String   @unique @map("slack_team_id")
+  slackTeamName      String   @map("slack_team_name")
+  slackTeamDomain    String?  @map("slack_team_domain")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  isActive           Boolean  @default(true) @map("is_active")
+  subscriptionTier   String   @default("free") @map("subscription_tier")
+  dataRetentionDays  Int      @default(30) @map("data_retention_days")
+  
+  // Relations
+  oauthTokens        OAuthToken[]
+  monitoredChannels  MonitoredChannel[]
+  messages           Message[]
+  teamInsights       TeamInsight[]
+  userConsents       UserConsent[]
+  
+  @@map("workspaces")
+}
+
+// OAuth tokens with rotation support
+model OAuthToken {
+  id              String    @id @default(cuid())
+  workspaceId     String    @map("workspace_id")
+  slackUserId     String?   @map("slack_user_id")
+  accessToken     String    @map("access_token") // Will be encrypted
+  refreshToken    String?   @map("refresh_token") // Will be encrypted
+  tokenType       String    @default("bot") @map("token_type")
+  scopes          String[]
+  expiresAt       DateTime? @map("expires_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  isActive        Boolean   @default(true) @map("is_active")
+  rotationEnabled Boolean   @default(true) @map("rotation_enabled")
+  
+  // Relations
+  workspace       Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  @@unique([workspaceId, tokenType])
+  @@map("oauth_tokens")
+}
+
+// Channels being monitored
+model MonitoredChannel {
+  id               String    @id @default(cuid())
+  workspaceId      String    @map("workspace_id")
+  slackChannelId   String    @map("slack_channel_id")
+  slackChannelName String?   @map("slack_channel_name")
+  isActive         Boolean   @default(true) @map("is_active")
+  lastSyncAt       DateTime? @map("last_sync_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  workspace        Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  messages         Message[]
+  
+  @@unique([workspaceId, slackChannelId])
+  @@map("monitored_channels")
+}
+
+// Messages for analysis
+model Message {
+  id              String    @id @default(cuid())
+  workspaceId     String    @map("workspace_id")
+  channelId       String    @map("channel_id")
+  slackMessageId  String    @unique @map("slack_message_id")
+  slackUserId     String?   @map("slack_user_id")
+  messageText     String?   @map("message_text")
+  sentimentScore  Decimal?  @map("sentiment_score") @db.Decimal(3, 2)
+  sentimentLabel  String?   @map("sentiment_label")
+  hasReactions    Boolean   @default(false) @map("has_reactions")
+  threadTs        String?   @map("thread_ts")
+  postedAt        DateTime? @map("posted_at")
+  processedAt     DateTime? @map("processed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  channel         MonitoredChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  
+  @@map("messages")
+}
+
+// Team insights
+model TeamInsight {
+  id                String   @id @default(cuid())
+  workspaceId       String   @map("workspace_id")
+  metricType        String   @map("metric_type") // 'morale', 'productivity', 'collaboration'
+  metricValue       Decimal  @map("metric_value") @db.Decimal(5, 2)
+  periodStart       DateTime @map("period_start")
+  periodEnd         DateTime @map("period_end")
+  aiRecommendations String[] @map("ai_recommendations")
+  createdAt         DateTime @default(now()) @map("created_at")
+  
+  // Relations
+  workspace         Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  @@map("team_insights")
+}
+
+// User consent tracking for GDPR
+model UserConsent {
+  id           String    @id @default(cuid())
+  workspaceId  String    @map("workspace_id")
+  slackUserId  String    @map("slack_user_id")
+  consentType  String    @map("consent_type") // 'data_processing', 'analytics', 'ai_analysis'
+  consented    Boolean   @default(false)
+  consentDate  DateTime? @map("consent_date")
+  ipAddress    String?   @map("ip_address")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  workspace    Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  @@unique([workspaceId, slackUserId, consentType])
+  @@map("user_consents")
+}

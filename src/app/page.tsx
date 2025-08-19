@@ -9,6 +9,7 @@ import { HealthScoreGauge } from "@/components/ui/HealthScoreGauge";
 import { DashboardPreview } from "@/components/ui/DashboardPreview";
 import { NavigationHeader } from "@/components/ui/navigation-header";
 import { SlackIcon } from "@/components/icons/slack-icon";
+import { ConnectSlackButton, ConnectSlackCTA } from "@/components/ui/connect-slack-button";
 
 export default function Home() {
   return (
@@ -48,10 +49,14 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <button className="btn-primary flex items-center justify-center gap-2">
-              <SlackIcon className="w-5 h-5" />
+            <ConnectSlackButton
+              size="lg"
+              className="btn-primary"
+              onConnect={() => console.log('Starting Slack OAuth...')}
+              onError={(error) => console.error('OAuth error:', error)}
+            >
               Connect Slack Free
-            </button>
+            </ConnectSlackButton>
             <button className="btn-secondary flex items-center justify-center gap-2">
               <Play className="w-5 h-5" />
               Watch 2-min demo
@@ -400,10 +405,13 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <button className="btn-accent flex items-center justify-center gap-2 mx-auto">
-              <SlackIcon className="w-5 h-5" />
+            <ConnectSlackButton
+              className="btn-accent mx-auto"
+              onConnect={() => console.log('Starting Slack OAuth...')}
+              onError={(error) => console.error('OAuth error:', error)}
+            >
               Connect Slack Free
-            </button>
+            </ConnectSlackButton>
           </div>
         </div>
       </section>
@@ -418,10 +426,10 @@ export default function Home() {
             Join thousands of teams using data to create better workplaces.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn-primary flex items-center justify-center gap-2">
-              <SlackIcon className="w-5 h-5" />
-              Connect Slack Free
-            </button>
+            <ConnectSlackCTA
+              onConnect={() => console.log('Starting Slack OAuth...')}
+              onError={(error) => console.error('OAuth error:', error)}
+            />
             <button className="btn-secondary">
               Schedule a demo
             </button>
