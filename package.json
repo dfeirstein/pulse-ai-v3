@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev --port 3002",
     "dev:https": "node scripts/https-server.js",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev"
