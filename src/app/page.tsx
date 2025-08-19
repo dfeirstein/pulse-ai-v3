@@ -8,7 +8,6 @@ import { CircularAvatar } from "@/components/ui/CircularAvatar";
 import { HealthScoreGauge } from "@/components/ui/HealthScoreGauge";
 import { DashboardPreview } from "@/components/ui/DashboardPreview";
 import { NavigationHeader } from "@/components/ui/navigation-header";
-import { SlackIcon } from "@/components/icons/slack-icon";
 import { ConnectSlackButton, ConnectSlackCTA } from "@/components/ui/connect-slack-button";
 
 export default function Home() {

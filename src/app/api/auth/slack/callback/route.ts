@@ -107,12 +107,12 @@ export async function GET(request: NextRequest) {
     successUrl.searchParams.set('workspace_name', workspace.slackTeamName);
     
     return NextResponse.redirect(successUrl);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Slack OAuth callback error:', error);
     
     const errorUrl = new URL('/auth/slack/error', request.url);
     errorUrl.searchParams.set('error', 'oauth_failed');
-    errorUrl.searchParams.set('message', error.message || 'OAuth flow failed');
+    errorUrl.searchParams.set('message', error instanceof Error ? error.message : 'OAuth flow failed');
     
     return NextResponse.redirect(errorUrl);
   }

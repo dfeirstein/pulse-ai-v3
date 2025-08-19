@@ -51,10 +51,10 @@ export function ConnectSlackButton({
       
       // Redirect to OAuth install endpoint
       window.location.href = '/api/auth/slack/install';
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to start Slack OAuth:', error);
       setIsConnecting(false);
-      onError?.(error.message || 'Failed to connect to Slack');
+      onError?.(error instanceof Error ? error.message : 'Failed to connect to Slack');
     }
   };
 
@@ -99,10 +99,10 @@ export function ConnectSlackIconButton({
       onConnect?.();
       
       window.location.href = '/api/auth/slack/install';
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to start Slack OAuth:', error);
       setIsConnecting(false);
-      onError?.(error.message || 'Failed to connect to Slack');
+      onError?.(error instanceof Error ? error.message : 'Failed to connect to Slack');
     }
   };
 
@@ -147,10 +147,10 @@ export function ConnectSlackCTA({
       onConnect?.();
       
       window.location.href = '/api/auth/slack/install';
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to start Slack OAuth:', error);
       setIsConnecting(false);
-      onError?.(error.message || 'Failed to connect to Slack');
+      onError?.(error instanceof Error ? error.message : 'Failed to connect to Slack');
     }
   };
 
@@ -179,7 +179,7 @@ export function ConnectSlackCTA({
           {isConnecting ? 'Connecting to Slack...' : 'Connect to Slack'}
         </span>
         <span className="text-sm opacity-90 font-normal">
-          Start analyzing your team's sentiment
+          Start analyzing your team&apos;s sentiment
         </span>
       </span>
     </Button>

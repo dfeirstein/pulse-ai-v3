@@ -48,13 +48,13 @@ export async function GET(request: NextRequest) {
         rotation_enabled: token.rotationEnabled
       }))
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Token status check error:', error);
     
     return NextResponse.json(
       { 
         error: 'Status check failed',
-        message: error.message || 'Failed to check token status'
+        message: error instanceof Error ? error.message : 'Failed to check token status'
       },
       { status: 400 }
     );

@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const tokenManager = new TokenManager();
     
     // This will automatically refresh if needed
-    const newToken = await tokenManager.getValidToken(workspace_id, token_type);
+    await tokenManager.getValidToken(workspace_id, token_type);
     
     // Get updated expiry information
     const expiryInfo = await tokenManager.getTokenExpiry(workspace_id, token_type);
@@ -33,13 +33,13 @@ export async function POST(request: NextRequest) {
       expires_in: expiryInfo.expiresIn,
       needs_refresh: expiryInfo.needsRefresh
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Token refresh error:', error);
     
     return NextResponse.json(
       { 
         error: 'Token refresh failed',
-        message: error.message || 'Failed to refresh token'
+        message: error instanceof Error ? error.message : 'Failed to refresh token'
       },
       { status: 400 }
     );

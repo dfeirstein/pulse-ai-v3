@@ -110,9 +110,10 @@ export async function POST(request: NextRequest) {
 }
 
 // Event handler functions (to be implemented in Phase 2)
-async function handleMessageEvent(event: any, teamId: string) {
+async function handleMessageEvent(event: unknown, teamId: string) {
   // Queue message for sentiment analysis
-  console.log('New message in channel:', event.channel, 'from team:', teamId);
+  const evt = event as { channel?: string };
+  console.log('New message in channel:', evt.channel, 'from team:', teamId);
   
   // TODO: Implement in Phase 2
   // - Store message in database
@@ -120,36 +121,40 @@ async function handleMessageEvent(event: any, teamId: string) {
   // - Update real-time dashboard
 }
 
-async function handleReactionAddedEvent(event: any, teamId: string) {
+async function handleReactionAddedEvent(event: unknown, teamId: string) {
   // Process reaction for sentiment indicators
-  console.log('Reaction added:', event.reaction, 'in team:', teamId);
+  const evt = event as { reaction?: string };
+  console.log('Reaction added:', evt.reaction, 'in team:', teamId);
   
   // TODO: Implement in Phase 2
   // - Update message reaction count
   // - Adjust sentiment scoring
 }
 
-async function handleReactionRemovedEvent(event: any, teamId: string) {
+async function handleReactionRemovedEvent(event: unknown, teamId: string) {
   // Update reaction metrics
-  console.log('Reaction removed:', event.reaction, 'in team:', teamId);
+  const evt = event as { reaction?: string };
+  console.log('Reaction removed:', evt.reaction, 'in team:', teamId);
   
   // TODO: Implement in Phase 2
   // - Update message reaction count
   // - Adjust sentiment scoring
 }
 
-async function handleMemberJoinedEvent(event: any, teamId: string) {
+async function handleMemberJoinedEvent(event: unknown, teamId: string) {
   // Track team dynamics
-  console.log('Member joined channel:', event.channel, 'in team:', teamId);
+  const evt = event as { channel?: string };
+  console.log('Member joined channel:', evt.channel, 'in team:', teamId);
   
   // TODO: Implement in Phase 2
   // - Update channel member count
   // - Track team growth metrics
 }
 
-async function handleMemberLeftEvent(event: any, teamId: string) {
+async function handleMemberLeftEvent(event: unknown, teamId: string) {
   // Track team dynamics
-  console.log('Member left channel:', event.channel, 'in team:', teamId);
+  const evt = event as { channel?: string };
+  console.log('Member left channel:', evt.channel, 'in team:', teamId);
   
   // TODO: Implement in Phase 2
   // - Update channel member count
@@ -157,7 +162,7 @@ async function handleMemberLeftEvent(event: any, teamId: string) {
 }
 
 // Support GET requests for testing
-export async function GET(request: NextRequest) {
+export async function GET() {
   return NextResponse.json({ 
     status: 'Slack webhook endpoint is running',
     timestamp: new Date().toISOString()

@@ -1,6 +1,6 @@
 import { encrypt, decrypt } from '@/lib/encryption';
 import { prisma } from '@/lib/prisma';
-import { SlackOAuthService, SlackTokenResponse } from './slack-oauth.service';
+import { SlackOAuthService } from './slack-oauth.service';
 import { OAuthToken, Workspace } from '@prisma/client';
 
 export interface TokenData {
@@ -277,7 +277,7 @@ export class TokenManager {
   async testTokens(
     workspaceId: string,
     tokenType: 'bot' | 'user' = 'bot'
-  ): Promise<{ valid: boolean; error?: string; tokenInfo?: any }> {
+  ): Promise<{ valid: boolean; error?: string; tokenInfo?: unknown }> {
     try {
       const accessToken = await this.getValidToken(workspaceId, tokenType);
       const tokenInfo = await this.oauthService.testToken(accessToken);
@@ -286,10 +286,10 @@ export class TokenManager {
         valid: true,
         tokenInfo
       };
-    } catch (error: any) {
+    } catch (error) {
       return {
         valid: false,
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       };
     }
   }

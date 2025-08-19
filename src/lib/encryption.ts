@@ -49,7 +49,7 @@ export function encrypt(plaintext: string): string {
     const key = deriveKey(masterKey, salt);
     
     // Create cipher
-    const cipher = crypto.createCipherGCM(ENCRYPTION_ALGORITHM, key, iv);
+    const cipher = crypto.createCipheriv(ENCRYPTION_ALGORITHM, key, iv) as crypto.CipherGCM;
     cipher.setAAD(Buffer.alloc(0)); // Additional authenticated data (empty for our use case)
     
     // Encrypt
@@ -95,6 +95,10 @@ export function decrypt(encryptedData: string): string {
     
     const [saltBase64, ivBase64, tagBase64, ciphertext] = parts;
     
+    if (!saltBase64 || !ivBase64 || !tagBase64 || !ciphertext) {
+      throw new Error('Missing encrypted data components');
+    }
+    
     // Convert from base64
     const salt = Buffer.from(saltBase64, 'base64');
     const iv = Buffer.from(ivBase64, 'base64');
@@ -115,7 +119,7 @@ export function decrypt(encryptedData: string): string {
     const key = deriveKey(masterKey, salt);
     
     // Create decipher
-    const decipher = crypto.createDecipherGCM(ENCRYPTION_ALGORITHM, key, iv);
+    const decipher = crypto.createDecipheriv(ENCRYPTION_ALGORITHM, key, iv) as crypto.DecipherGCM;
     decipher.setAAD(Buffer.alloc(0)); // Same additional authenticated data as encryption
     decipher.setAuthTag(tag);
     

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { SlackOAuthService } from '@/lib/services/slack-oauth.service';
 import { cookies } from 'next/headers';
 
@@ -8,7 +8,7 @@ import { cookies } from 'next/headers';
  * Initiates the Slack OAuth flow by redirecting the user to Slack's authorization page.
  * Stores the OAuth state in a secure cookie for validation during callback.
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const oauthService = new SlackOAuthService();
     const { url, state } = oauthService.generateAuthUrl();
@@ -25,13 +25,13 @@ export async function GET(request: NextRequest) {
 
     // Redirect to Slack OAuth page
     return NextResponse.redirect(url);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Slack OAuth install error:', error);
     
     return NextResponse.json(
       { 
         error: 'OAuth initialization failed',
-        message: error.message || 'Failed to start OAuth flow'
+        message: error instanceof Error ? error.message : 'Failed to start OAuth flow'
       },
       { status: 500 }
     );

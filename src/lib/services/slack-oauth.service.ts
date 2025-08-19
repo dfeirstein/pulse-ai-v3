@@ -125,7 +125,7 @@ export class SlackOAuthService {
         team: {
           id: result.team?.id as string,
           name: result.team?.name as string,
-          domain: result.team?.domain as string
+          domain: (result.team as { domain?: string })?.domain
         },
         authed_user: {
           id: result.authed_user?.id as string,
@@ -134,12 +134,13 @@ export class SlackOAuthService {
         scope: result.scope as string,
         bot_user_id: result.bot_user_id as string
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('OAuth token exchange error:', error);
       
       // Handle specific Slack API errors
-      if (error?.data?.error) {
-        switch (error.data.error) {
+      const err = error as { data?: { error?: string } };
+      if (err?.data?.error) {
+        switch (err.data.error) {
           case 'invalid_code':
             throw new Error('Invalid authorization code. Please try again.');
           case 'code_already_used':
@@ -147,7 +148,7 @@ export class SlackOAuthService {
           case 'invalid_redirect_uri':
             throw new Error('Invalid redirect URI configuration.');
           default:
-            throw new Error(`Slack API error: ${error.data.error}`);
+            throw new Error(`Slack API error: ${err.data.error}`);
         }
       }
       
@@ -181,17 +182,18 @@ export class SlackOAuthService {
         refresh_token: result.refresh_token as string,
         expires_in: result.expires_in as number
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Token refresh error:', error);
       
-      if (error?.data?.error) {
-        switch (error.data.error) {
+      const err = error as { data?: { error?: string } };
+      if (err?.data?.error) {
+        switch (err.data.error) {
           case 'invalid_refresh_token':
             throw new Error('Invalid refresh token. Re-authorization required.');
           case 'token_revoked':
             throw new Error('Token has been revoked. Re-authorization required.');
           default:
-            throw new Error(`Token refresh error: ${error.data.error}`);
+            throw new Error(`Token refresh error: ${err.data.error}`);
         }
       }
       
@@ -215,7 +217,7 @@ export class SlackOAuthService {
         console.error('Token revocation failed:', result.error);
         throw new Error(`Token revocation failed: ${result.error || 'Unknown error'}`);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Token revocation error:', error);
       throw new Error('Failed to revoke token');
     }
@@ -289,7 +291,7 @@ export class SlackOAuthService {
         team: {
           id: teamInfo.team?.id,
           name: teamInfo.team?.name,
-          domain: teamInfo.team?.domain,
+          domain: (teamInfo.team as { domain?: string })?.domain,
           icon: teamInfo.team?.icon
         },
         bot: {

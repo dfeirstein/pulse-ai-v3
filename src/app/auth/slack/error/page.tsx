@@ -68,14 +68,14 @@ const SLACK_ERRORS: Record<string, SlackError> = {
 function ErrorContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [error, setError] = useState<SlackError>(SLACK_ERRORS.default);
+  const [error, setError] = useState<SlackError>(SLACK_ERRORS.default as SlackError);
   const [errorMessage, setErrorMessage] = useState<string>('');
   
   useEffect(() => {
     const errorCode = searchParams.get('error') || 'default';
     const message = searchParams.get('message');
     
-    setError(SLACK_ERRORS[errorCode] || SLACK_ERRORS.default);
+    setError(SLACK_ERRORS[errorCode] || SLACK_ERRORS.default as SlackError);
     if (message) {
       setErrorMessage(decodeURIComponent(message));
     }
@@ -85,10 +85,6 @@ function ErrorContent() {
     router.push('/');
   };
 
-  const handleTryAgain = () => {
-    // Redirect back to the OAuth install
-    window.location.href = '/api/auth/slack/install';
-  };
 
   const isRetryable = !['invalid_redirect_uri', 'insufficient_scope'].includes(error.code);
   const needsSupport = ['invalid_redirect_uri', 'oauth_failed'].includes(error.code);

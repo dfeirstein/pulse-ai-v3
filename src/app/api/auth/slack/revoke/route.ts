@@ -26,13 +26,13 @@ export async function POST(request: NextRequest) {
       success: true,
       message: `${token_type || 'All'} tokens revoked for workspace`
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Token revocation error:', error);
     
     return NextResponse.json(
       { 
         error: 'Token revocation failed',
-        message: error.message || 'Failed to revoke tokens'
+        message: error instanceof Error ? error.message : 'Failed to revoke tokens'
       },
       { status: 400 }
     );

@@ -78,7 +78,7 @@ function SuccessContent() {
                   Choose channels to monitor
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Select which Slack channels you'd like Pulse AI to analyze for team sentiment
+                  Select which Slack channels you&apos;d like Pulse AI to analyze for team sentiment
                 </p>
               </div>
             </div>
