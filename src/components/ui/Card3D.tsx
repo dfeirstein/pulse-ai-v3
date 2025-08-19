@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useTheme } from "@/hooks/useTheme";
 
 interface Card3DProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ const Card3D: React.FC<Card3DProps> = ({
   const [ref, inView] = useInView({ threshold: 0.1 });
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
+  const { theme } = useTheme();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -47,10 +49,16 @@ const Card3D: React.FC<Card3DProps> = ({
       transition={{ duration: 0.6 }}
     >
       <motion.div
-        className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 transform-gpu transition-all duration-300 hover:shadow-2xl"
+        className={`relative backdrop-blur-xl rounded-2xl p-8 transform-gpu transition-all duration-300 ${
+          theme === 'light'
+            ? 'bg-white/90 border border-gray-200/50 hover:shadow-xl'
+            : 'bg-white/10 border border-white/20 hover:shadow-2xl'
+        }`}
         style={{
           transformStyle: "preserve-3d",
-          boxShadow: `0 20px 40px ${glowColor}20, 0 0 0 1px ${glowColor}10`
+          boxShadow: theme === 'light'
+            ? `0 10px 25px rgba(0,0,0,0.05), 0 0 0 1px ${glowColor}15`
+            : `0 20px 40px ${glowColor}20, 0 0 0 1px ${glowColor}10`
         }}
         animate={{
           rotateX: rotateX,
@@ -62,7 +70,9 @@ const Card3D: React.FC<Card3DProps> = ({
         <div 
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: `linear-gradient(135deg, ${glowColor}10, transparent 50%, ${glowColor}05)`
+            background: theme === 'light'
+              ? `linear-gradient(135deg, ${glowColor}08, transparent 50%, ${glowColor}03)` // Subtler in light mode
+              : `linear-gradient(135deg, ${glowColor}10, transparent 50%, ${glowColor}05)`
           }}
         />
       </motion.div>

@@ -2,123 +2,95 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { BarChart3, Shield, Brain } from "lucide-react";
-import Card3D from "@/components/ui/Card3D";
-import SplitText from "@/components/animations/SplitText";
+import { Clock, Shield, Brain } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
 const features = [
   {
-    icon: BarChart3,
-    title: "Lightning Analysis",
-    description: "Get comprehensive team sentiment in under 30 seconds",
-    color: "#FF6B6B",
-    features: ["Real-time emotional mapping", "Predictive trend analysis", "Cross-platform integration"]
+    icon: Clock,
+    title: "Know in seconds, not surveys",
+    description: "AI analyzes existing communication patterns. No more survey fatigue or waiting weeks for results.",
+    color: "#FF6B6B"
   },
   {
     icon: Shield,
-    title: "Fort Knox Security", 
-    description: "Military-grade encryption meets complete privacy",
-    color: "#20B2AA",
-    features: ["Zero-knowledge architecture", "End-to-end encryption", "Compliance automation"]
+    title: "100% anonymous, 100% honest",
+    description: "Complete privacy protection means teams share real feelings, not what they think you want to hear.",
+    color: "#20B2AA"
   },
   {
     icon: Brain,
-    title: "AI Superpowers",
-    description: "Advanced machine learning that understands human nuance",
-    color: "#EE82EE", 
-    features: ["Emotional intelligence AI", "Burnout early warning", "Culture health scoring"]
+    title: "AI that actually understands humans",
+    description: "Advanced sentiment analysis that catches nuance, context, and the things left unsaid.",
+    color: "#EE82EE"
   }
 ];
 
 const Features: React.FC = () => {
+  const { theme } = useTheme();
+  
   return (
-    <section className="py-32 px-6 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-
-      <div className="container mx-auto max-w-7xl relative z-10">
+    <section className={`py-20 px-6 relative overflow-hidden transition-colors duration-300 ${
+      theme === 'light' 
+        ? 'bg-white' 
+        : 'bg-gray-900'
+    }`}>
+      <div className="container mx-auto max-w-6xl">
         <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
         >
-          <SplitText 
-            className="text-5xl md:text-6xl font-black mb-6 text-white"
-            delay={0.2}
-          >
-            Why Teams Love Pulse AI
-          </SplitText>
-          <motion.p 
-            className="text-xl text-white/70 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            Experience the future of team insights with our revolutionary AI-powered platform
-          </motion.p>
+          <h2 className={`text-4xl md:text-5xl font-black mb-4 ${
+            theme === 'light' ? 'text-gray-900' : 'text-white'
+          }`}>
+            Why teams choose Pulse AI
+          </h2>
+          <p className={`text-xl max-w-2xl mx-auto ${
+            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+          }`}>
+            Simple, powerful, and built for the way modern teams actually work.
+          </p>
         </motion.div>
         
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card3D 
+            <motion.div
               key={index}
-              glowColor={feature.color}
-              className="group"
+              className={`p-8 rounded-xl transition-all ${
+                theme === 'light' 
+                  ? 'bg-gray-50 hover:bg-gray-100 border border-gray-200' 
+                  : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
+              }`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <motion.div
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+              <div 
+                className="h-12 w-12 rounded-lg flex items-center justify-center mb-6"
+                style={{ backgroundColor: `${feature.color}20` }}
               >
-                <motion.div
-                  className="mb-6 inline-block"
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <feature.icon 
-                    className="h-16 w-16 mx-auto" 
-                    style={{ color: feature.color }}
-                  />
-                </motion.div>
-                
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-white/90 transition-colors">
-                  {feature.title}
-                </h3>
-                
-                <p className="text-white/70 mb-6 leading-relaxed">
-                  {feature.description}
-                </p>
-                
-                <div className="space-y-3">
-                  {feature.features.map((item, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex items-center gap-3 text-white/60"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.1 + i * 0.1 }}
-                    >
-                      <div 
-                        className="w-2 h-2 rounded-full"
-                        style={{ backgroundColor: feature.color }}
-                      />
-                      <span className="text-sm">{item}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </Card3D>
+                <feature.icon 
+                  className="h-6 w-6" 
+                  style={{ color: feature.color }}
+                />
+              </div>
+              
+              <h3 className={`text-xl font-bold mb-3 ${
+                theme === 'light' ? 'text-gray-900' : 'text-white'
+              }`}>
+                {feature.title}
+              </h3>
+              
+              <p className={`leading-relaxed ${
+                theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+              }`}>
+                {feature.description}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
