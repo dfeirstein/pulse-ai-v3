@@ -231,7 +231,7 @@ export function applyConfigurationAdjustments(
   metrics: WorkspaceMetrics,
   config: PricingConfiguration
 ): WorkspaceMetrics {
-  let adjustedMetrics = { ...metrics };
+  const adjustedMetrics = { ...metrics };
 
   // Apply user tracking limit
   adjustedMetrics.activeUsers = Math.min(config.trackedUsers, metrics.activeUsers);

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Check, Sparkles, TrendingUp, Users, MessageSquare, RefreshCw, ArrowRight, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -79,7 +80,7 @@ export function PricingSection() {
   const [channels, setChannels] = useState(15);
   const [estimatedPrice, setEstimatedPrice] = useState(0);
   const [optimizedPrice, setOptimizedPrice] = useState(0);
-  const [roiData, setRoiData] = useState<any>(null);
+  const [roiData, setRoiData] = useState<ReturnType<typeof calculateROI> | null>(null);
   const [avgSalary, setAvgSalary] = useState(75000);
 
   // Calculate pricing when sliders change
@@ -242,7 +243,7 @@ export function PricingSection() {
                 </div>
                 <Slider
                   value={[users]}
-                  onValueChange={(value) => setUsers(value[0])}
+                  onValueChange={(value) => setUsers(value[0] || 50)}
                   min={10}
                   max={500}
                   step={10}
@@ -267,7 +268,7 @@ export function PricingSection() {
                 </div>
                 <Slider
                   value={[channels]}
-                  onValueChange={(value) => setChannels(value[0])}
+                  onValueChange={(value) => setChannels(value[0] || 15)}
                   min={5}
                   max={50}
                   step={5}
@@ -311,7 +312,7 @@ export function PricingSection() {
                 Calculate your ROI
               </h3>
               <p className="font-handwritten text-purple text-xl">
-                spoiler: it's huge
+                spoiler: it&apos;s huge
               </p>
             </div>
 
@@ -340,7 +341,7 @@ export function PricingSection() {
                 </div>
                 <Slider
                   value={[avgSalary]}
-                  onValueChange={(value) => setAvgSalary(value[0])}
+                  onValueChange={(value) => setAvgSalary(value[0] || 75000)}
                   min={40000}
                   max={200000}
                   step={5000}
@@ -409,12 +410,14 @@ export function PricingSection() {
         <div className="grid md:grid-cols-3 gap-6 mb-16">
           <Card className="p-6 bg-white shadow-lg animate-fade-in-up">
             <p className="text-gray-700 mb-4">
-              "Finally, pricing that makes sense for our team size. We only pay for what we use."
+              &quot;Finally, pricing that makes sense for our team size. We only pay for what we use.&quot;
             </p>
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/images/testimonial-sarah-k.jpg"
                 alt="Sarah K."
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div>
@@ -426,12 +429,14 @@ export function PricingSection() {
 
           <Card className="p-6 bg-white shadow-lg animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             <p className="text-gray-700 mb-4">
-              "70% cheaper than Culture Amp with better real-time insights. No-brainer decision."
+              &quot;70% cheaper than Culture Amp with better real-time insights. No-brainer decision.&quot;
             </p>
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/images/testimonial-michael-r.jpg"
                 alt="Michael R."
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div>
@@ -443,12 +448,14 @@ export function PricingSection() {
 
           <Card className="p-6 bg-white shadow-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <p className="text-gray-700 mb-4">
-              "The optimization controls let us balance insights with budget. Perfect flexibility."
+              &quot;The optimization controls let us balance insights with budget. Perfect flexibility.&quot;
             </p>
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/images/testimonial-jessica-l.jpg"
                 alt="Jessica L."
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div>

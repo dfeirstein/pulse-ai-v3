@@ -32,12 +32,7 @@ import {
   ArrowRight,
   Play,
   Download,
-  Upload,
-  Search,
-  Menu,
-  X,
-  ChevronRight,
-  ExternalLink
+  Search
 } from "lucide-react";
 import { NavigationHeader } from "@/components/ui/navigation-header";
 import { ConnectSlackButton } from "@/components/ui/connect-slack-button";
@@ -291,7 +286,7 @@ export default function DesignTheme() {
                 <Button variant="primary" size="sm">Small Primary</Button>
                 <Button variant="primary" disabled>Disabled</Button>
               </div>
-              <code className="text-sm text-gray-600 mt-2 block">variant="primary" size="lg|default|sm"</code>
+              <code className="text-sm text-gray-600 mt-2 block">variant=&quot;primary&quot; size=&quot;lg|default|sm&quot;</code>
             </div>
 
             <div>
@@ -302,7 +297,7 @@ export default function DesignTheme() {
                 <Button variant="secondary" size="sm">Small Secondary</Button>
                 <Button variant="secondary" disabled>Disabled</Button>
               </div>
-              <code className="text-sm text-gray-600 mt-2 block">variant="secondary"</code>
+              <code className="text-sm text-gray-600 mt-2 block">variant=&quot;secondary&quot;</code>
             </div>
 
             <div>
@@ -464,7 +459,7 @@ export default function DesignTheme() {
                   Team <span className="font-handwritten text-purple">Health</span>
                 </h4>
                 <p className="text-gray-600 mb-4">
-                  Monitor your team's wellbeing with real-time insights from Slack.
+                  Monitor your team&apos;s wellbeing with real-time insights from Slack.
                 </p>
                 <div className="flex items-center gap-4">
                   <div className="text-3xl font-bold text-turquoise">85%</div>
@@ -732,7 +727,7 @@ export default function DesignTheme() {
               <Card>
                 <CardHeader>
                   <CardTitle>Overview</CardTitle>
-                  <CardDescription>Your team's health at a glance</CardDescription>
+                  <CardDescription>Your team&apos;s health at a glance</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p>Overview content goes here...</p>
