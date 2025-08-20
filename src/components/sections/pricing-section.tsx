@@ -202,13 +202,10 @@ export function PricingSection() {
                 </ul>
 
                 <Button
-                  className={`
-                    w-full rounded-full font-semibold mt-auto
-                    ${tier.highlighted 
-                      ? 'bg-black text-white hover:bg-gray-800' 
-                      : 'bg-white text-black border-2 border-gray-300 hover:border-gray-400'
-                    }
-                  `}
+                  variant={tier.highlighted ? "default" : "secondary"}
+                  className={`w-full rounded-full font-semibold mt-auto ${
+                    tier.highlighted ? 'bg-black text-white hover:bg-gray-800' : ''
+                  }`}
                 >
                   {tier.price ? 'Start Free Trial' : 'Contact Sales'}
                 </Button>
