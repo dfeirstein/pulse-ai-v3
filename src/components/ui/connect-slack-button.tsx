@@ -42,20 +42,17 @@ export function ConnectSlackButton({
 }: ConnectSlackButtonProps) {
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const handleConnect = async () => {
+  const handleConnect = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (isConnecting || disabled) return;
     
-    try {
-      setIsConnecting(true);
-      onConnect?.();
-      
-      // Redirect to OAuth install endpoint
+    setIsConnecting(true);
+    onConnect?.();
+    
+    // Small delay to ensure state updates are processed
+    setTimeout(() => {
       window.location.href = '/api/auth/slack/install';
-    } catch (error) {
-      console.error('Failed to start Slack OAuth:', error);
-      setIsConnecting(false);
-      onError?.(error instanceof Error ? error.message : 'Failed to connect to Slack');
-    }
+    }, 100);
   };
 
   return (
@@ -87,19 +84,17 @@ export function ConnectSlackIconButton({
 }: Omit<ConnectSlackButtonProps, 'size' | 'children'>) {
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const handleConnect = async () => {
+  const handleConnect = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (isConnecting || disabled) return;
     
-    try {
-      setIsConnecting(true);
-      onConnect?.();
-      
+    setIsConnecting(true);
+    onConnect?.();
+    
+    // Small delay to ensure state updates are processed
+    setTimeout(() => {
       window.location.href = '/api/auth/slack/install';
-    } catch (error) {
-      console.error('Failed to start Slack OAuth:', error);
-      setIsConnecting(false);
-      onError?.(error instanceof Error ? error.message : 'Failed to connect to Slack');
-    }
+    }, 100);
   };
 
   return (
@@ -131,19 +126,17 @@ export function ConnectSlackCTA({
 }: Omit<ConnectSlackButtonProps, 'size' | 'children'>) {
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const handleConnect = async () => {
+  const handleConnect = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (isConnecting || disabled) return;
     
-    try {
-      setIsConnecting(true);
-      onConnect?.();
-      
+    setIsConnecting(true);
+    onConnect?.();
+    
+    // Small delay to ensure state updates are processed
+    setTimeout(() => {
       window.location.href = '/api/auth/slack/install';
-    } catch (error) {
-      console.error('Failed to start Slack OAuth:', error);
-      setIsConnecting(false);
-      onError?.(error instanceof Error ? error.message : 'Failed to connect to Slack');
-    }
+    }, 100);
   };
 
   return (

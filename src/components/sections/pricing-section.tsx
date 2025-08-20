@@ -146,7 +146,7 @@ export function PricingSection() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-section font-bold text-gray-900 mb-4">
+          <h2 className="text-section font-serif font-bold text-gray-900 mb-4">
             Transparent pricing that{' '}
             <span className="font-handwritten text-purple">grows with you</span>
           </h2>
@@ -221,7 +221,7 @@ export function PricingSection() {
         <div className="max-w-4xl mx-auto mb-24">
           <Card className="card-culture p-8 bg-white">
             <div className="text-center mb-8">
-              <h3 className="text-subsection font-bold text-gray-900 mb-2">
+              <h3 className="text-subsection font-serif font-bold text-gray-900 mb-2">
                 See your <span className="font-handwritten text-purple">exact price</span>
               </h3>
               <p className="text-gray-600">
@@ -308,10 +308,10 @@ export function PricingSection() {
         <div className="max-w-4xl mx-auto mb-16">
           <Card className="card-culture p-8 bg-white">
             <div className="text-center mb-8">
-              <h3 className="text-subsection font-bold text-gray-900 mb-2">
+              <h3 className="text-subsection font-serif font-bold text-gray-900 mb-2">
                 Calculate your ROI
               </h3>
-              <p className="font-handwritten text-purple text-xl">
+              <p className="font-handwritten text-purple text-2xl">
                 spoiler: it&apos;s huge
               </p>
             </div>
