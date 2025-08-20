@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
-import { SlackIcon } from "@/components/icons/slack-icon";
+import { ConnectSlackButton } from "@/components/ui/connect-slack-button";
 
 export function NavigationHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -49,13 +49,14 @@ export function NavigationHeader() {
                 Sign in
               </Button>
             </Link>
-            <Button 
-              size="sm" 
-              className="bg-black hover:bg-gray-800 text-white flex items-center gap-2"
+            <ConnectSlackButton 
+              size="sm"
+              className="rounded-full"
+              onConnect={() => console.log('Starting Slack OAuth from header...')}
+              onError={(error) => console.error('OAuth error from header:', error)}
             >
-              <SlackIcon className="w-4 h-4" />
               Connect Slack Free
-            </Button>
+            </ConnectSlackButton>
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,15 +72,15 @@ export function NavigationHeader() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full sm:w-80 !bg-white bg-opacity-100 border-l z-[100]">
+              <SheetContent side="right" className="w-full sm:w-80 bg-background-warm border-l border-gray-200 z-[100] px-8 py-6">
                 <SheetHeader className="sr-only">
                   <SheetTitle>Navigation Menu</SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col space-y-6 mt-8">
+                <div className="flex flex-col space-y-8 mt-4">
                   {/* Mobile Logo */}
                   <Link 
                     href="/" 
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 px-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-2xl font-bold">
@@ -88,12 +89,12 @@ export function NavigationHeader() {
                   </Link>
 
                   {/* Mobile Navigation */}
-                  <nav className="flex flex-col space-y-4">
+                  <nav className="flex flex-col space-y-2">
                     {navItems.map((item) => (
                       <Link
                         key={item.label}
                         href={item.href}
-                        className="text-lg font-medium text-foreground hover:text-purple transition-colors duration-200 py-2"
+                        className="text-lg font-medium text-gray-700 hover:text-purple hover:bg-gray-50 transition-all duration-200 py-3 px-4 rounded-xl"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {item.label}
@@ -102,19 +103,22 @@ export function NavigationHeader() {
                   </nav>
 
                   {/* Mobile CTA Buttons */}
-                  <div className="flex flex-col space-y-3 pt-6 border-t border-border">
+                  <div className="flex flex-col space-y-4 pt-6 border-t border-gray-200">
                     <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full rounded-full py-6 text-base font-medium border-gray-300 hover:border-gray-400 bg-white">
                         Sign in
                       </Button>
                     </Link>
-                    <Button 
-                      className="w-full bg-black hover:bg-gray-800 text-white flex items-center justify-center gap-2"
-                      onClick={() => setMobileMenuOpen(false)}
+                    <ConnectSlackButton 
+                      className="w-full rounded-full py-6 text-base font-semibold bg-black hover:bg-gray-800"
+                      onConnect={() => {
+                        console.log('Starting Slack OAuth from mobile menu...');
+                        setMobileMenuOpen(false);
+                      }}
+                      onError={(error) => console.error('OAuth error from mobile menu:', error)}
                     >
-                      <SlackIcon className="w-4 h-4" />
                       Connect Slack Free
-                    </Button>
+                    </ConnectSlackButton>
                   </div>
                 </div>
               </SheetContent>

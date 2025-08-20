@@ -21,7 +21,7 @@ app.prepare().then(() => {
 
   const server = createServer(httpsOptions, async (req, res) => {
     try {
-      const parsedUrl = parse(req.url!, true);
+      const parsedUrl = parse(req.url, true);
       await handle(req, res, parsedUrl);
     } catch (err) {
       console.error('Error occurred handling', req.url, err);

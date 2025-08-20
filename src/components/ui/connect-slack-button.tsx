@@ -62,18 +62,14 @@ export function ConnectSlackButton({
     <Button
       onClick={handleConnect}
       disabled={disabled || isConnecting}
+      variant="primary"
       size={size}
       className={className}
-      style={{
-        backgroundColor: '#4A154B', // Slack brand color
-        borderColor: '#4A154B',
-        color: 'white'
-      }}
     >
       {isConnecting ? (
         <Loader2 className="animate-spin" />
       ) : (
-        <SlackIcon className="text-white" />
+        <SlackIcon />
       )}
       {children || (isConnecting ? 'Connecting...' : 'Connect to Slack')}
     </Button>
@@ -110,19 +106,15 @@ export function ConnectSlackIconButton({
     <Button
       onClick={handleConnect}
       disabled={disabled || isConnecting}
+      variant="primary"
       size="icon"
       className={className}
-      style={{
-        backgroundColor: '#4A154B',
-        borderColor: '#4A154B',
-        color: 'white'
-      }}
       title={isConnecting ? 'Connecting to Slack...' : 'Connect to Slack'}
     >
       {isConnecting ? (
         <Loader2 className="animate-spin" />
       ) : (
-        <SlackIcon className="text-white" />
+        <SlackIcon />
       )}
     </Button>
   );
@@ -158,21 +150,14 @@ export function ConnectSlackCTA({
     <Button
       onClick={handleConnect}
       disabled={disabled || isConnecting}
+      variant="primary"
       size="lg"
       className={className}
-      style={{
-        backgroundColor: '#4A154B',
-        borderColor: '#4A154B',
-        color: 'white',
-        fontSize: '1.1rem',
-        padding: '1rem 2rem',
-        height: 'auto'
-      }}
     >
       {isConnecting ? (
-        <Loader2 className="animate-spin" />
+        <Loader2 className="animate-spin size-6" />
       ) : (
-        <SlackIcon className="text-white w-6 h-6" />
+        <SlackIcon className="size-6" />
       )}
       <span className="flex flex-col items-start">
         <span className="font-semibold">

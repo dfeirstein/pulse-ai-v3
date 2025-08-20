@@ -4,11 +4,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Play, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { CircularAvatar } from "@/components/ui/CircularAvatar";
 import { HealthScoreGauge } from "@/components/ui/HealthScoreGauge";
 import { DashboardPreview } from "@/components/ui/DashboardPreview";
 import { NavigationHeader } from "@/components/ui/navigation-header";
 import { ConnectSlackButton, ConnectSlackCTA } from "@/components/ui/connect-slack-button";
+import { PricingSection } from "@/components/sections/pricing-section";
 
 export default function Home() {
   return (
@@ -50,16 +52,16 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <ConnectSlackButton
               size="lg"
-              className="btn-primary"
+              className="font-semibold"
               onConnect={() => console.log('Starting Slack OAuth...')}
               onError={(error) => console.error('OAuth error:', error)}
             >
               Connect Slack Free
             </ConnectSlackButton>
-            <button className="btn-secondary flex items-center justify-center gap-2">
+            <Button variant="secondary" size="lg" className="font-semibold">
               <Play className="w-5 h-5" />
               Watch 2-min demo
-            </button>
+            </Button>
           </div>
 
           {/* Enhanced Hero Section with Dashboard and Team Members */}
@@ -361,6 +363,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <PricingSection />
+
       {/* How It Works Section */}
       <section id="how-it-works" className="section-container bg-gray-100">
         <div className="text-center mb-16">
@@ -405,7 +410,8 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <ConnectSlackButton
-              className="btn-accent mx-auto"
+              size="lg"
+              className="mx-auto font-semibold"
               onConnect={() => console.log('Starting Slack OAuth...')}
               onError={(error) => console.error('OAuth error:', error)}
             >
@@ -429,9 +435,9 @@ export default function Home() {
               onConnect={() => console.log('Starting Slack OAuth...')}
               onError={(error) => console.error('OAuth error:', error)}
             />
-            <button className="btn-secondary">
+            <Button variant="secondary" size="lg" className="font-semibold">
               Schedule a demo
-            </button>
+            </Button>
           </div>
         </div>
       </section>
